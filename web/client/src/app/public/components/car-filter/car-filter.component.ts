@@ -4,16 +4,17 @@ import { CarFilterModel } from '../../../shared/models/car-filter.model';
 import * as $ from 'jquery';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  selector: 'app-car-filter',
+  templateUrl: './car-filter.component.html',
+  styleUrls: ['./car-filter.component.css']
 })
-export class HomeComponent implements OnInit {
+export class CarFilterComponent implements OnInit {
   filter: CarFilterModel;
 
   constructor() { }
 
   ngOnInit() {
+    this.filter = new CarFilterModel();
+    this.filter.SortBy = 1;
   }
-
 }

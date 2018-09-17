@@ -14,3 +14,4 @@ C:\data\projects\mdk\web\server\model\bin\Debug\Newtonsoft.Json.xml
 C:\data\projects\mdk\web\server\model\bin\Debug\EntityFrameworkPaginate.dll
 C:\data\projects\mdk\web\server\model\obj\Debug\model.Migrations.v1.resources
 C:\data\projects\mdk\web\server\model\obj\Debug\model.csproj.GenerateResource.cache
+C:\data\projects\mdk\web\server\model\obj\Debug\model.csprojAssemblyReference.cache

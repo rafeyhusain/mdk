@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using EntityFrameworkPaginate;
 using Microsoft.AspNetCore.Mvc;
 using model;
 
@@ -13,17 +14,29 @@ namespace api.Controllers
     {
         CarDb db = new CarDb();
 
-        // GET api/values
         [HttpGet]
-        public string Get()
-        //public string Get([FromBody] SerachFilters filters)
+        public Page<Car> Get()
         {
             var filters = new SerachFilters();
 
             filters.CurrentPage = 1;
-            filters.PageSize = 5;
-            filters.Price = new List<int>(new [] {2800, 3500});
+            filters.PageSize = 10;
             filters.SortBy = 1;
+
+            return db.GetCars(filters);
+        }
+
+        [HttpPost]
+        public Page<Car> Post(SerachFilters filters)
+        {
+            if (filters == null)
+            {
+                filters = new SerachFilters();
+
+                filters.CurrentPage = 1;
+                filters.PageSize = 10;
+                filters.SortBy = 1;
+            }
 
             return db.GetCars(filters);
         }

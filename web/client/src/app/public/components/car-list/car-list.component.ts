@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { CarService } from '../../../services/car/car.service';
 import { CarModel } from '../../../shared/models/car.model';
+import { CarFilterModel } from '../../../shared/models/car-filter.model';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-car-list',
@@ -8,9 +10,9 @@ import { CarModel } from '../../../shared/models/car.model';
   styleUrls: ['./car-list.component.css']
 })
 export class CarListComponent implements OnInit {
+  @Input() filter: CarFilterModel;
+
   cars: CarModel[];
-  totalPages: number;
-  activePage: number;
   
   constructor(private carService: CarService) { }
 
@@ -19,7 +21,10 @@ export class CarListComponent implements OnInit {
   }
 
   getCars(): void {
-    this.carService.getCars()
-    .subscribe(cars => this.cars = cars);
+    this.carService.getCar(1)
+    .subscribe(car => console.log(car));
+
+    // this.carService.getCars(this.filter)
+    // .subscribe(cars => this.cars = cars);
   }
 }
