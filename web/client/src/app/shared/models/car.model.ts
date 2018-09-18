@@ -1,4 +1,33 @@
 export class CarModel {
-    id: number;
-    name: string;
+    CarId : number;
+    Caption : string;
+    Price : number[];
+    Rating : number[];
+    Make : number;
+    Model : number;
+    Year : number[];
+    Month : number[];
+    Mileage : number[];
+    Condition : number;
+    ExteriorColor : number;
+    InteriorColor : number;
+    Transmission : number;
+    Engine : number;
+    DriveTrain : number;
+    Location : number;
+    StockId : string;
+    ChassisNo : string;
+    Displacement : number[];
+    Steering : number;
+    FuelType : number;
+    Door : number;
+    Grade : number;
+    Featured : number;
+    Image : string;
+    Summary : string; 
+    Images : string; 
+    GeneralInformation : string;
+    VechileOverview : string;
+    Options : string;
+    Features : string;
 }

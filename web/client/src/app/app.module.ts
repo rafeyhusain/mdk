@@ -11,6 +11,7 @@ import { CarListComponent } from './public/components/car-list/car-list.componen
 import { CarDetailComponent } from './public/components/car-detail/car-detail.component';
 import { HomeComponent } from  './public/pages/home/home.component';
 import { CarFilterComponent } from './public/components/car-filter/car-filter.component';
+import { PagerComponent } from './public/components/pager/pager.component';
 
 @NgModule({
   imports: [
@@ -25,7 +26,8 @@ import { CarFilterComponent } from './public/components/car-filter/car-filter.co
     CarListComponent,
     CarDetailComponent,
     HomeComponent,
-    CarFilterComponent
+    CarFilterComponent,
+    PagerComponent
   ],
   bootstrap: [ AppComponent ]
 })

@@ -1,30 +1,29 @@
-
-    <div class="car-item gray-bg text-center">
-       <div class="car-image">
-          <img class="img-fluid" src="../../../../assets/public/images/car/01.jpg" alt=""> 
-          <div class="car-overlay-banner">
-             <ul>
-                <li><a href="/detail/{{car.id}}"><i class="fa fa-link"></i></a></li>
-                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-             </ul>
-          </div>
-       </div>
-       <div class="car-list">
-          <ul class="list-inline">
-             <li><i class="fa fa-registered"></i> 2016</li>
-             <li><i class="fa fa-cog"></i> Manual </li>
-             <li><i class="fa fa-shopping-cart"></i> 6,000 mi</li>
-          </ul>
-       </div>
-       <div class="car-content">
-          <div class="star"> <i class="fa fa-star orange-color"></i> <i class="fa fa-star orange-color"></i> 
-             <i class="fa fa-star orange-color"></i> <i class="fa fa-star orange-color"></i> 
-             <i class="fa fa-star-o orange-color"></i> 
-          </div>
-          <a href="#">{{car.name}}</a> 
-          <div class="separator"></div>
-          <div class="price"> <span class="old-price">$35,568</span> <span class="new-price">$32,698 
-             </span> 
-          </div>
-       </div>
+<div class="car-item gray-bg text-center">
+    <div class="car-image">
+        <img class="img-fluid" src="../../../../assets/public/images/car/{{car.Image}}" alt=""> 
+        <div class="car-overlay-banner">
+            <ul>
+            <li><a href="/detail/{{car.CarId}}"><i class="fa fa-link"></i></a></li>
+            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+            </ul>
+        </div>
     </div>
+    <div class="car-list">
+        <ul class="list-inline">
+            <li><i class="fa fa-registered"></i> {{car.Year}}</li>
+            <li><i class="fa fa-cog"></i> {{car.Transmission}} </li>
+            <li><i class="fa fa-shopping-cart"></i>{{car.Mileage}} mi</li>
+        </ul>
+    </div>
+    <div class="car-content">
+        <div class="star"> <i class="fa fa-star orange-color"></i> <i class="fa fa-star orange-color"></i> 
+            <i class="fa fa-star orange-color"></i> <i class="fa fa-star orange-color"></i> 
+            <i class="fa fa-star-o orange-color"></i> 
+        </div>
+        <a href="#">{{car.Caption}}</a> 
+        <div class="separator"></div>
+        <div class="price"> <span class="old-price">${{car.PriceOriginal}}</span> <span class="new-price">${{car.Price}} 
+            </span> 
+        </div>
+    </div>
+</div>

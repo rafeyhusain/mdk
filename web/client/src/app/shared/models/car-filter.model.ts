@@ -21,6 +21,7 @@ export class CarFilterModel {
     FuelType : string;
     Door : string;
     Grade : string;
+    Featured : string;
     CurrentPage : number;
     PageSize : number;
     SortBy : number;

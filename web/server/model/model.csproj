@@ -37,9 +37,6 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFrameworkPaginate, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFrameworkPaginate.1.2.0\lib\EntityFrameworkPaginate.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -66,17 +63,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\201809161525107_v1.cs" />
-    <Compile Include="Migrations\201809161525107_v1.Designer.cs">
-      <DependentUpon>201809161525107_v1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="SerachFilters.cs" />
     <Compile Include="CarDb.cs" />
-    <Compile Include="CarDetail.cs" />
+    <Compile Include="CarFilter.cs" />
+    <Compile Include="CarSummary.cs" />
     <Compile Include="Car.cs" />
     <Compile Include="CarDbInitializer.cs" />
     <Compile Include="CarDbContext.cs" />
+    <Compile Include="Migrations\201809180818374_v1.cs" />
+    <Compile Include="Migrations\201809180818374_v1.Designer.cs">
+      <DependentUpon>201809180818374_v1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -84,8 +81,14 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201809161525107_v1.resx">
-      <DependentUpon>201809161525107_v1.cs</DependentUpon>
+    <ProjectReference Include="..\EntityFrameworkPaginate\EntityFrameworkPaginate.csproj">
+      <Project>{441ce001-f344-476e-9f5b-2c9877f7243f}</Project>
+      <Name>EntityFrameworkPaginate</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201809180818374_v1.resx">
+      <DependentUpon>201809180818374_v1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

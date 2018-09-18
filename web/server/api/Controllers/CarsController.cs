@@ -24,13 +24,13 @@ namespace api.Controllers
         }
 
         [HttpGet]
-        [Route("api/cars")]
-        public HttpResponseMessage Get()
+        [Route("api/cars/{id}")]
+        public HttpResponseMessage Get(int id)
         {
-            var filters = new SerachFilters();
+            var filters = new CarFilter();
 
             filters.CurrentPage = 1;
-            filters.PageSize = 10;
+            filters.PageSize = 1;
             filters.SortBy = 1;
 
             var list = db.GetCars(filters);
@@ -40,11 +40,11 @@ namespace api.Controllers
 
         [HttpPost]
         [Route("api/cars/search")]
-        public HttpResponseMessage Search(SerachFilters filters)
+        public HttpResponseMessage Search(CarFilter filters)
         {
             if (filters == null)
             {
-                filters = new SerachFilters();
+                filters = new CarFilter();
 
                 filters.CurrentPage = 1;
                 filters.PageSize = 10;
