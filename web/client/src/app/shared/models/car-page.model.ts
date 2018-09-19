@@ -1,3 +1,4 @@
+import { Response } from '@angular/http';
 import { CarModel } from './car.model';
 
 export class CarPageModel {
@@ -16,7 +17,8 @@ export class CarPageModel {
         this.SortBy = carPage.SortBy;
 
         this.Results.forEach(car => {
-            car.Stars = Array(car.Rating);
+            car.Images_ = JSON.parse(car.Images);
+            car.Features_ = JSON.parse(car.Features);
         });
     }
 }

@@ -1,6 +1,6 @@
 <div class="car-item gray-bg text-center">
     <div class="car-image">
-        <img class="img-fluid" src="../../../../assets/public/images/car/{{car.Image}}" alt=""> 
+        <img class="img-fluid" src="../../../../assets/public/images/car/{{car.Images_[0]}}" alt=""> 
         <div class="car-overlay-banner">
             <ul>
             <li><a href="/detail/{{car.CarId}}"><i class="fa fa-link"></i></a></li>
@@ -17,9 +17,7 @@
     </div>
     <div class="car-content">
         <div class="star"> 
-            <span *ngFor="let star of car.Stars">
-                <i class="fa fa-star orange-color"></i>
-            </span>
+            <i class="fa fa-star orange-color"></i>
         </div>
         <a href="#">{{car.Caption}}</a> 
         <div class="separator"></div>

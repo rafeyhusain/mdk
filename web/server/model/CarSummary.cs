@@ -27,8 +27,7 @@ namespace model
         public int Month { get; set; }
         public int Mileage { get; set; }
         public int Condition { get; set; }
-        public int ExteriorColor { get; set; }
-        public int InteriorColor { get; set; }
+        public int Color { get; set; }
         public int Transmission { get; set; }
         public int Engine { get; set; }
         public int DriveTrain { get; set; }

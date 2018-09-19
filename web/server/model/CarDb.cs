@@ -20,23 +20,17 @@ namespace model
             var sorts = new Sorts<Car>();
 
             filters.Add(f.Caption != null && f.Caption.Count > 0, car => f.Caption.Contains(car.Caption));
-            filters.Add(f.Price != null && f.Price.Count > 0, car => f.Price.Contains(car.Price));
-            filters.Add(f.Rating != null && f.Rating.Count > 0, car => f.Rating.Contains(car.Rating));
+            filters.Add(f.Price != null && f.Price.Count == 2, car => car.Price >= f.Price[0] && car.Price <= f.Price[1]);
             filters.Add(f.Make != null && f.Make.Count > 0, car => f.Make.Contains(car.Make));
             filters.Add(f.Model != null && f.Model.Count > 0, car => f.Model.Contains(car.Model));
-            filters.Add(f.Year != null && f.Year.Count > 0, car => f.Year.Contains(car.Year));
+            filters.Add(f.Year != null && f.Year.Count == 2, car => car.Price >= f.Year[0] &&  car.Price <= f.Year[1]);
             filters.Add(f.Month != null && f.Month.Count > 0, car => f.Month.Contains(car.Month));
-            filters.Add(f.Mileage != null && f.Mileage.Count > 0, car => f.Mileage.Contains(car.Mileage));
-            filters.Add(f.Condition != null && f.Condition.Count > 0, car => f.Condition.Contains(car.Condition));
-            filters.Add(f.ExteriorColor != null && f.ExteriorColor.Count > 0, car => f.ExteriorColor.Contains(car.ExteriorColor));
-            filters.Add(f.InteriorColor != null && f.InteriorColor.Count > 0, car => f.InteriorColor.Contains(car.InteriorColor));
+            filters.Add(f.Mileage != null && f.Mileage.Count == 2, car => car.Mileage >= f.Mileage[0] && car.Mileage <= f.Mileage[1]);
             filters.Add(f.Transmission != null && f.Transmission.Count > 0, car => f.Transmission.Contains(car.Transmission));
-            filters.Add(f.Engine != null && f.Engine.Count > 0, car => f.Engine.Contains(car.Engine));
-            filters.Add(f.DriveTrain != null && f.DriveTrain.Count > 0, car => f.DriveTrain.Contains(car.DriveTrain));
             filters.Add(f.Location != null && f.Location.Count > 0, car => f.Location.Contains(car.Location));
             filters.Add(f.StockId != null && f.StockId.Count > 0, car => f.StockId.Contains(car.StockId));
             filters.Add(f.ChassisNo != null && f.ChassisNo.Count > 0, car => f.ChassisNo.Contains(car.ChassisNo));
-            filters.Add(f.Displacement != null && f.Displacement.Count > 0, car => f.Displacement.Contains(car.Displacement));
+            filters.Add(f.Displacement != null && f.Displacement.Count == 2, car => car.Displacement >= f.Displacement[0] && car.Displacement <= f.Displacement[1]);
             filters.Add(f.Steering != null && f.Steering.Count > 0, car => f.Steering.Contains(car.Steering));
             filters.Add(f.FuelType != null && f.FuelType.Count > 0, car => f.FuelType.Contains(car.FuelType));
             filters.Add(f.Door != null && f.Door.Count > 0, car => f.Door.Contains(car.Door));
@@ -56,46 +50,37 @@ namespace model
             return list;
         }
 
-
         public static void Seed(CarDbContext context)
         {
             IList<Car> car = new List<Car>();
 
             for (int i = 0; i < 5000; i++)
             {
+                var result = i % 2 == 0;
+
                 car.Add(new Car()
                 {
-                    Caption = i % 2 == 0 ? "TOYOTA ALLEX - " + i : "TOYOTA COROLLA RUNX - " + i,
+                    Caption = result ? "TOYOTA ALLEX - " + i : "TOYOTA COROLLA RUNX - " + i,
                     Price = 2700 + i * 100,
                     PriceOriginal = 2800 + i * 100,
-                    Rating = i % 2 == 0 ? 4 : 3,
-                    Make = i % 2 == 0 ? 1 : 2,
-                    Model = i % 2 == 0 ? 1 : 2,
+                    Make = result ? 1 : 2,
+                    Model = result ? 1 : 2,
                     Year = 2005 + i % 10,
-                    Month = 12,
+                    Month = result ? 11 : 12,
                     Mileage = 5000 + i * 1000,
-                    Condition = i % 2 == 0 ? 1 : 2,
-                    ExteriorColor = i % 2 == 0 ? 1 : 2,
-                    InteriorColor = i % 2 == 0 ? 1 : 2,
-                    Transmission = i % 2 == 0 ? 1 : 2,
-                    Engine = i % 2 == 0 ? 1 : 2,
-                    DriveTrain = i % 2 == 0 ? 1 : 2,
-                    Location = i % 2 == 0 ? 1 : 2,
+                    Color = result ? 1 : 2,
+                    Transmission = result ? 1 : 2,
+                    Location = result ? 1 : 2,
                     StockId = "47650" + i,
-                    ChassisNo = "NZE121-5095276" + i,
+                    ChassisNo = "NZE121-5095276-" + i,
                     Displacement = 1000 + i * 10,
-                    Steering = i % 2 == 0 ? 1 : 2,
-                    FuelType = i % 2 == 0 ? 1 : 2,
-                    Door = i % 2 == 0 ? 1 : 2,
-                    Grade = i % 2 == 0 ? 1 : 2,
-                    Image = i % 2 == 0 ? "1.jpg" : "2.jpg",
-                    Featured = i % 2 == 0 ? true : false,
-                    Summary = Lorem(1),
-                    GeneralInformation = Lorem(100),
-                    VechileOverview = Lorem(100),
-                    Features = "['Security System', 'Air conditioning', 'Alloy Wheels', 'Anti-Lock Brakes(ABS)', 'Anti-Theft', 'Anti-Starter']",
-                    Options = "{'Air conditioning':'Mark','Alloy Wheels':'Jacob','Anti-Lock Brakes(ABS)':'Larry','Anti-Theft':'Larry','Anti-Starter':'Larry','Alloy Wheels':'Larry'}",
-                    Images = i % 2 == 0 ? "['1','1.1','1.2','1.3']" : "['2','2.1','2.2','2.3','2.4']",
+                    Steering = result ? 1 : 2,
+                    FuelType = result ? 1 : 2,
+                    Door = result ? 1 : 2,
+                    Grade = result ? 1 : 2,
+                    Featured = result ? true : false,
+                    Features = result ? @"[""Security System"", ""Air conditioning"", ""Alloy Wheels""]" : @"[ ""Anti-Lock Brakes(ABS)"", ""Anti-Theft"", ""Anti-Starter""]",
+                    Images = result ? @"[""1.jpg"",""1.1.jpg"",""1.2.jpg"",""1.3.jpg""]" : @"[""2.jpg"",""2.1.jpg"",""2.2.jpg"",""2.3.jpg"",""2.4.jpg""]",
                 });
             }
 

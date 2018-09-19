@@ -21,9 +21,6 @@ namespace model
         public int PriceOriginal { get; set; }
 
         [Index]
-        public int Rating { get; set; }
-
-        [Index]
         public int Make { get; set; }
 
         [Index]
@@ -37,22 +34,10 @@ namespace model
         public int Mileage { get; set; }
 
         [Index]
-        public int Condition { get; set; }
-
-        [Index]
-        public int ExteriorColor { get; set; }
-
-        [Index]
-        public int InteriorColor { get; set; }
+        public int Color { get; set; }
 
         [Index]
         public int Transmission { get; set; }
-
-        [Index]
-        public int Engine { get; set; }
-
-        [Index]
-        public int DriveTrain { get; set; }
 
         [Index]
         public int Location { get; set; }
@@ -61,8 +46,6 @@ namespace model
 
         [Index]
         public int Displacement { get; set; }
-
-        [Index]
         public int Steering { get; set; }
 
         [Index]
@@ -73,26 +56,19 @@ namespace model
 
         [Index]
         public int Grade { get; set; }
-
+        
         [Index]
         public bool Featured { get; set; }
 
-        public string Image { get; set; }
-        public string Summary { get; set; }
+        [Column(TypeName = "ntext")]
+        public string Features { get; set; }
 
         [Column(TypeName = "ntext")]
         public string Images { get; set; }
-
-        [Column(TypeName = "ntext")]
-        public string GeneralInformation { get; set; }
-
-        [Column(TypeName = "ntext")]
-        public string VechileOverview { get; set; }
-
-        [Column(TypeName = "ntext")]
-        public string Options { get; set; }
-
-        [Column(TypeName = "ntext")]
-        public string Features { get; set; }
     }
 }
+
+
+
+
+
