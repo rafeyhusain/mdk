@@ -8,7 +8,7 @@ import * as $ from 'jquery';
   styleUrls: ['./car.component.css']
 })
 export class CarComponent implements OnInit {
-  @Input() car:CarModel;
+  @Input() car: CarModel;
 
   constructor() { }
 

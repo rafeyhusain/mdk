@@ -23,9 +23,11 @@ export class CarListComponent implements OnInit {
   ngOnInit() {
     this.setPage(1);
   }
+  
+  setPage(pageNo: number) {
+    console.log('PageNo', pageNo);
 
-  setPage(page: number) {
-    this.filter.CurrentPage = page;
+    this.filter.CurrentPage = pageNo;
     this.filter.SortBy = 1;
     this.filter.PageSize = 10;
 
@@ -35,7 +37,9 @@ export class CarListComponent implements OnInit {
 
   setCarPage(carPage: CarPageModel) {
     this.cars = carPage.Results
-    this.pager = this.pagerService.getPager(this.cars.length, carPage.CurrentPage);
+    this.pager = this.pagerService.getPager(carPage.RecordCount, carPage.CurrentPage);
     this.pagedItems = this.cars.slice(this.pager.startIndex, this.pager.endIndex + 1);
+
+    console.log('PAGER', this.pager);
   }
 }

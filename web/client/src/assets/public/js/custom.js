@@ -544,16 +544,15 @@ var POTENZA = {};
 })(jQuery);
 
 $( document ).ready(function() {    
-  $.ajax({
-    url: 'http://themes.potenzaglobalsolutions.com/top-bar-section.php',
-    type: 'post',
-    //dataType: 'json',     
-    data:'action=pgs_top_bar&theme=car-dealer',
-    success: function(response){
-      $('body').prepend(response);        
-    },
-    
-  });        
+  // $.ajax({
+  //   url: 'http://themes.potenzaglobalsolutions.com/top-bar-section.php',
+  //   type: 'post',
+  //   //dataType: 'json',     
+  //   data:'action=pgs_top_bar&theme=car-dealer',
+  //   success: function(response){
+  //     $('body').prepend(response);        
+  //   },
+  // });        
 });
 $(document).on('click','a.frame-close', function(e){
   $('.header-preview').slideUp(); 

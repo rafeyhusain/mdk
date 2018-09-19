@@ -16,9 +16,10 @@
         </ul>
     </div>
     <div class="car-content">
-        <div class="star"> <i class="fa fa-star orange-color"></i> <i class="fa fa-star orange-color"></i> 
-            <i class="fa fa-star orange-color"></i> <i class="fa fa-star orange-color"></i> 
-            <i class="fa fa-star-o orange-color"></i> 
+        <div class="star"> 
+            <span *ngFor="let star of car.Stars">
+                <i class="fa fa-star orange-color"></i>
+            </span>
         </div>
         <a href="#">{{car.Caption}}</a> 
         <div class="separator"></div>

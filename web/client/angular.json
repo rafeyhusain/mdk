@@ -26,6 +26,8 @@
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/jquery-ui-dist/jquery-ui.min.js",
+              "node_modules/sticky-kit/dist/sticky-kit.min.js",
               "node_modules/bootstrap/dist/js/bootstrap.js",
               "src/assets/public/js/popper.js",
               "src/assets/public/js/mega-menu/mega_menu.js",

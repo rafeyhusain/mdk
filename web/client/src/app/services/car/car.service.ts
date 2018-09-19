@@ -40,7 +40,12 @@ export class CarService {
     const url = `${this.baseUrl}/api/cars/search`;
 
     return this.http.post<CarPageModel>(url, filter, httpOptions).pipe(
-      tap((carPage: CarPageModel) => console.log(`Cars :`, carPage)),
+      tap((result: CarPageModel) => {
+        console.log(`Cars :`, result);
+        let carPage = new CarPageModel(); // result is just raw data without functions
+        carPage.prepare(result);
+        result = carPage;
+      }),
       catchError(this.handleError<CarPageModel>('Error'))
     );
   }

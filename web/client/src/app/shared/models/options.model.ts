@@ -1,12 +1,7 @@
-export class CarModel {
-    CarId : number;
-    Caption : string;
-    Price : number[];
-    Rating : number[];
+export class OptionsModel {
     Make : number;
     Model : number;
     Year : number[];
-    Month : number[];
     Mileage : number[];
     Condition : number;
     ExteriorColor : number;
