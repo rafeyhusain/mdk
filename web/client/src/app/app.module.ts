@@ -12,6 +12,8 @@ import { CarDetailComponent } from './public/components/car-detail/car-detail.co
 import { HomeComponent } from  './public/pages/home/home.component';
 import { CarFilterComponent } from './public/components/car-filter/car-filter.component';
 import { PagerComponent } from './public/components/pager/pager.component';
+import { FilterCheckboxComponent } from './public/components/filter-checkbox/filter-checkbox.component';
+import { FilterSliderComponent } from './public/components/filter-slider/filter-slider.component';
 
 @NgModule({
   imports: [
@@ -27,7 +29,9 @@ import { PagerComponent } from './public/components/pager/pager.component';
     CarDetailComponent,
     HomeComponent,
     CarFilterComponent,
-    PagerComponent
+    PagerComponent,
+    FilterCheckboxComponent,
+    FilterSliderComponent
   ],
   bootstrap: [ AppComponent ]
 })

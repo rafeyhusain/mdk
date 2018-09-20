@@ -13,6 +13,8 @@ namespace model
 {
     public class CarDb
     {
+        private static Dictionary<string, Object> options = null;
+
         public Page<Car> GetCars(CarFilter f)
         {
             Page<Car> list;
@@ -50,58 +52,26 @@ namespace model
             return list;
         }
 
-        public static void Seed(CarDbContext context)
+        public Dictionary<string, Object> GetOptions()
         {
-            IList<Car> car = new List<Car>();
-
-            for (int i = 0; i < 5000; i++)
+            if (CarDb.options != null)
             {
-                var result = i % 2 == 0;
-
-                car.Add(new Car()
-                {
-                    Caption = result ? "TOYOTA ALLEX - " + i : "TOYOTA COROLLA RUNX - " + i,
-                    Price = 2700 + i * 100,
-                    PriceOriginal = 2800 + i * 100,
-                    Make = result ? 1 : 2,
-                    Model = result ? 1 : 2,
-                    Year = 2005 + i % 10,
-                    Month = result ? 11 : 12,
-                    Mileage = 5000 + i * 1000,
-                    Color = result ? 1 : 2,
-                    Transmission = result ? 1 : 2,
-                    Location = result ? 1 : 2,
-                    StockId = "47650" + i,
-                    ChassisNo = "NZE121-5095276-" + i,
-                    Displacement = 1000 + i * 10,
-                    Steering = result ? 1 : 2,
-                    FuelType = result ? 1 : 2,
-                    Door = result ? 1 : 2,
-                    Grade = result ? 1 : 2,
-                    Featured = result ? true : false,
-                    Features = result ? @"[""Security System"", ""Air conditioning"", ""Alloy Wheels""]" : @"[ ""Anti-Lock Brakes(ABS)"", ""Anti-Theft"", ""Anti-Starter""]",
-                    Images = result ? @"[""1.jpg"",""1.1.jpg"",""1.2.jpg"",""1.3.jpg""]" : @"[""2.jpg"",""2.1.jpg"",""2.2.jpg"",""2.3.jpg"",""2.4.jpg""]",
-                });
+                return CarDb.options;
             }
 
-            context.Cars.AddRange(car);
-            context.SaveChanges();
-        }
+            CarDb.options = new Dictionary<string, object>();
 
-        public static string Lorem(int count)
-        {
-            var text = new StringBuilder("Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero numquam repellendus non voluptate. Harum blanditiis ullam deleniti.");
-            var result = new StringBuilder();
-
-            for (int i = 0; i < count; i++)
+            using (var context = new CarDbContext())
             {
-                result.Append(text);
+                CarDb.options.Add("Makes", context.Makes.ToList());
+                CarDb.options.Add("Models", (from x in context.Models select new { Id = x.Id, Caption = x.Caption, MakeId = x.Make.Id }).ToList());
+                CarDb.options.Add("Colors", context.Colors.ToList());
+                CarDb.options.Add("FuelTypes", context.FuelTypes.ToList());
+                CarDb.options.Add("Grades", context.Grades.ToList());
+                CarDb.options.Add("Doors", context.Doors.ToList());
             }
 
-            return result.ToString();
+            return options;
         }
     }
 }
-
-
-

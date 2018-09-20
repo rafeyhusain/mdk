@@ -4,7 +4,7 @@ import { PagerService } from '../../../services/pager/pager.service';
 import { CarModel } from '../../../shared/models/car.model';
 import { CarPageModel } from '../../../shared/models/car-page.model';
 import { CarFilterModel } from '../../../shared/models/car-filter.model';
-import * as $ from 'jquery';
+declare let $: any;
 
 @Component({
   selector: 'app-car-list',
@@ -39,7 +39,5 @@ export class CarListComponent implements OnInit {
     this.cars = carPage.Results
     this.pager = this.pagerService.getPager(carPage.RecordCount, carPage.CurrentPage);
     this.pagedItems = this.cars.slice(this.pager.startIndex, this.pager.endIndex + 1);
-
-    console.log('PAGER', this.pager);
   }
 }

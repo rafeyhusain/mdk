@@ -55,5 +55,14 @@ namespace api.Controllers
 
             return CreateJsonResponse(list);
         }
+
+        [HttpGet]
+        [Route("api/cars/options")]
+        public HttpResponseMessage GetOptions()
+        {
+            var list = db.GetOptions();
+
+            return CreateJsonResponse(list);
+        }
     }
 }

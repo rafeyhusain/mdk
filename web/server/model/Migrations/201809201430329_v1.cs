@@ -11,7 +11,7 @@ namespace model.Migrations
                 "dbo.Cars",
                 c => new
                     {
-                        CarId = c.Int(nullable: false, identity: true),
+                        Id = c.Int(nullable: false, identity: true),
                         Caption = c.String(),
                         Price = c.Int(nullable: false),
                         PriceOriginal = c.Int(nullable: false),
@@ -34,7 +34,7 @@ namespace model.Migrations
                         Features = c.String(storeType: "ntext"),
                         Images = c.String(storeType: "ntext"),
                     })
-                .PrimaryKey(t => t.CarId)
+                .PrimaryKey(t => t.Id)
                 .Index(t => t.Price)
                 .Index(t => t.Make)
                 .Index(t => t.Model)
@@ -49,10 +49,69 @@ namespace model.Migrations
                 .Index(t => t.Grade)
                 .Index(t => t.Featured);
             
+            CreateTable(
+                "dbo.Colors",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Caption = c.String(),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.Doors",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Caption = c.String(),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.FuelTypes",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Caption = c.String(),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.Grades",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Caption = c.String(),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.Makes",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Caption = c.String(),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.Models",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Caption = c.String(),
+                        Make_Id = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Makes", t => t.Make_Id, cascadeDelete: true)
+                .Index(t => t.Make_Id);
+            
         }
         
         public override void Down()
         {
+            DropForeignKey("dbo.Models", "Make_Id", "dbo.Makes");
+            DropIndex("dbo.Models", new[] { "Make_Id" });
             DropIndex("dbo.Cars", new[] { "Featured" });
             DropIndex("dbo.Cars", new[] { "Grade" });
             DropIndex("dbo.Cars", new[] { "Door" });
@@ -66,6 +125,12 @@ namespace model.Migrations
             DropIndex("dbo.Cars", new[] { "Model" });
             DropIndex("dbo.Cars", new[] { "Make" });
             DropIndex("dbo.Cars", new[] { "Price" });
+            DropTable("dbo.Models");
+            DropTable("dbo.Makes");
+            DropTable("dbo.Grades");
+            DropTable("dbo.FuelTypes");
+            DropTable("dbo.Doors");
+            DropTable("dbo.Colors");
             DropTable("dbo.Cars");
         }
     }

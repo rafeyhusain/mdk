@@ -15,5 +15,11 @@ namespace model
         }
 
         public DbSet<Car> Cars { get; set; }
+        public DbSet<Make> Makes { get; set; }
+        public DbSet<Model> Models { get; set; }
+        public DbSet<Color> Colors { get; set; }
+        public DbSet<FuelType> FuelTypes { get; set; }
+        public DbSet<Grade> Grades { get; set; }
+        public DbSet<Door> Doors { get; set; }
     }
 }

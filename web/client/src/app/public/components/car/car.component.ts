@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { CarModel } from '../../../shared/models/car.model';
-import * as $ from 'jquery';
+declare let $: any;
 
 @Component({
   selector: 'app-car',

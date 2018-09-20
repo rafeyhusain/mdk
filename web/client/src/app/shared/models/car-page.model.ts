@@ -9,12 +9,12 @@ export class CarPageModel {
     RecordCount : number;
     SortBy : number;
 
-    prepare(carPage: CarPageModel) {
-        this.Results = carPage.Results;
-        this.CurrentPage = carPage.CurrentPage;
-        this.PageCount = carPage.PageCount;
-        this.PageSize = carPage.PageSize;
-        this.SortBy = carPage.SortBy;
+    prepare(model: CarPageModel) {
+        this.Results = model.Results;
+        this.CurrentPage = model.CurrentPage;
+        this.PageCount = model.PageCount;
+        this.PageSize = model.PageSize;
+        this.SortBy = model.SortBy;
 
         this.Results.forEach(car => {
             car.Images_ = JSON.parse(car.Images);

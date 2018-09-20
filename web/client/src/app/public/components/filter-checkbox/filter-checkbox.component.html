@@ -1,0 +1,17 @@
+<li class="list-group-item">
+    <a href="#">{{caption}}</a>
+    <ul style="display: block;">
+       <li><span class="checkbox">
+          <label>
+          <input type="checkbox"> All {{caption}}
+          </label>
+          </span>
+       </li>
+       <li *ngFor="let item of items"><span class="checkbox">
+          <label>
+          <input type="checkbox" value="{{item.Id}}"> {{item.Caption}}
+          </label>
+          </span>
+       </li>
+    </ul>
+ </li>

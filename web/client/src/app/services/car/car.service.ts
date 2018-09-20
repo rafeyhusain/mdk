@@ -7,6 +7,7 @@ import { MessageService } from '../message/message.service';
 
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
+import { OptionsModel } from '../../shared/models/options.model';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -16,6 +17,7 @@ const httpOptions = {
 export class CarService {
  
   private baseUrl = 'http://localhost:55450';  // URL to web api
+  private options: OptionsModel;
 
   constructor(
     private http: HttpClient,
@@ -27,7 +29,7 @@ export class CarService {
 
     return this.http.get<CarModel>(url).pipe(
       tap(_ => this.log(`fetched car id=${id}`)),
-      catchError(this.handleError<CarModel>(`getCar id=${id}`))
+      catchError(this.handleError<CarModel>(`ERROR in getCar id=${id}`))
     );
   }
 
@@ -41,15 +43,31 @@ export class CarService {
 
     return this.http.post<CarPageModel>(url, filter, httpOptions).pipe(
       tap((result: CarPageModel) => {
-        console.log(`Cars :`, result);
-        let carPage = new CarPageModel(); // result is just raw data without functions
-        carPage.prepare(result);
-        result = carPage;
+        let model = new CarPageModel(); // result is just raw data without functions
+        model.prepare(result);
+        result = model;
       }),
-      catchError(this.handleError<CarPageModel>('Error'))
+      catchError(this.handleError<CarPageModel>('ERROR in getCars'))
     );
   }
- 
+
+  getOptions(): Observable<OptionsModel> {
+    if (this.options != null) {
+      return of(this.options);
+    }
+
+    const url = `${this.baseUrl}/api/cars/options`;
+
+    return this.http.get<CarModel>(url).pipe(
+      tap((result: OptionsModel) => {
+        let model = new OptionsModel(); // result is just raw data without functions
+        model.prepare(result);
+        result = model;
+      }),
+      catchError(this.handleError<CarModel>(`ERROR in getOptions`))
+    );
+  }
+
   //////// Save methods //////////
  
   /** POST: add a new car to the server */

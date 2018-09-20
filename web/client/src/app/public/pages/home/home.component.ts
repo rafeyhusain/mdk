@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CarFilterModel } from '../../../shared/models/car-filter.model';
 
-import * as $ from 'jquery';
+declare let $: any;
 
 @Component({
   selector: 'app-home',

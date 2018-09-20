@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+@import "../node_modules/jquery-ui-dist/jquery-ui.min.css";
 
 @import "src/assets/public/css/flaticon.css";
 @import "src/assets/public/css/mega-menu/mega_menu.css";
@@ -8,6 +9,6 @@
 @import "src/assets/public/css/owl-carousel/owl.carousel.css";
 @import "src/assets/public/css/magnific-popup/magnific-popup.css";
 /*@import "src/assets/public/revolution/css/settings.css";*/
-/*@import "src/assets/public/css/jquery-ui.css";*/
+
 @import "src/assets/public/css/style.css";
 @import "src/assets/public/css/responsive.css";

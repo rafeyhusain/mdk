@@ -63,16 +63,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CarDbSeed.cs" />
+    <Compile Include="FuelType.cs" />
+    <Compile Include="Grade.cs" />
+    <Compile Include="Door.cs" />
+    <Compile Include="Color.cs" />
+    <Compile Include="Migrations\201809201430329_v1.cs" />
+    <Compile Include="Migrations\201809201430329_v1.Designer.cs">
+      <DependentUpon>201809201430329_v1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Model.cs" />
+    <Compile Include="Make.cs" />
     <Compile Include="CarDb.cs" />
     <Compile Include="CarFilter.cs" />
     <Compile Include="CarSummary.cs" />
     <Compile Include="Car.cs" />
     <Compile Include="CarDbInitializer.cs" />
     <Compile Include="CarDbContext.cs" />
-    <Compile Include="Migrations\201809191137449_v1.cs" />
-    <Compile Include="Migrations\201809191137449_v1.Designer.cs">
-      <DependentUpon>201809191137449_v1.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -87,8 +94,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201809191137449_v1.resx">
-      <DependentUpon>201809191137449_v1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201809201430329_v1.resx">
+      <DependentUpon>201809201430329_v1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
