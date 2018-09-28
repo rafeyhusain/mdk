@@ -8,6 +8,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 using EntityFrameworkPaginate;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity;
 
 namespace model
 {
@@ -22,6 +24,8 @@ namespace model
             AddColor(context);
             AddGrade(context);
             AddDoor(context);
+            AddRole(context);
+            AddUser(context);
         }
 
         private static void AddCars(CarDbContext context)
@@ -171,6 +175,38 @@ namespace model
 
             context.Doors.AddRange(list);
             context.SaveChanges();
+        }
+
+        private static void AddRole(CarDbContext context)
+        {
+            var roleStore = new RoleStore<IdentityRole>(context);
+            var roleMngr = new RoleManager<IdentityRole>(roleStore);
+
+            roleMngr.Create(new IdentityRole("Admin"));
+            roleMngr.Create(new IdentityRole("User"));
+        }
+
+        private static void AddUser(CarDbContext context)
+        {
+            CarDb.Register(new Account
+            {
+                Email = "admin@mdkjapan.com",
+                UserName = "admin",
+                Password = "admin",
+                FirstName = "Admin",
+                LastName = "Admin",
+                Roles = new string[] { "Admin" }
+            });
+
+            CarDb.Register(new Account
+            {
+                Email = "user@mdkjapan.com",
+                UserName = "user",
+                Password = "user",
+                FirstName = "User",
+                LastName = "User",
+                Roles = new string[] { "User" }
+            });
         }
 
         public static string Lorem(int count)

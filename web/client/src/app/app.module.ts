@@ -4,6 +4,7 @@ import { FormsModule }    from '@angular/forms';
 import { HttpClientModule }    from '@angular/common/http';
 
 import { AppRoutingModule }     from './app-routing.module';
+import { OAuthModule } from 'angular-oauth2-oidc';
 
 import { AppComponent }         from './app.component';
 import { CarComponent } from './public/components/car/car.component';
@@ -21,6 +22,7 @@ import { FilterSliderComponent } from './public/components/filter-slider/filter-
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
+    OAuthModule.forRoot()
   ],
   declarations: [
     AppComponent,

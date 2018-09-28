@@ -21,5 +21,16 @@ C:\data\projects\mdk\web\server\model\obj\Debug\model.dll
 C:\data\projects\mdk\web\server\model\obj\Debug\model.pdb
 C:\data\projects\mdk\web\server\model\obj\Debug\model.csprojAssemblyReference.cache
 C:\data\projects\mdk\web\server\model\bin\Debug\EntityFrameworkPaginate.pdb
+C:\data\projects\mdk\web\server\model\bin\Debug\Microsoft.AspNet.Identity.Core.dll
+C:\data\projects\mdk\web\server\model\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\data\projects\mdk\web\server\model\bin\Debug\Microsoft.Owin.dll
+C:\data\projects\mdk\web\server\model\bin\Debug\Microsoft.Owin.Security.dll
+C:\data\projects\mdk\web\server\model\bin\Debug\Microsoft.Owin.Security.OAuth.dll
+C:\data\projects\mdk\web\server\model\bin\Debug\Owin.dll
+C:\data\projects\mdk\web\server\model\bin\Debug\Microsoft.AspNet.Identity.Core.xml
+C:\data\projects\mdk\web\server\model\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\data\projects\mdk\web\server\model\bin\Debug\Microsoft.Owin.xml
+C:\data\projects\mdk\web\server\model\bin\Debug\Microsoft.Owin.Security.xml
+C:\data\projects\mdk\web\server\model\bin\Debug\Microsoft.Owin.Security.OAuth.xml
 C:\data\projects\mdk\web\server\model\obj\Debug\model.Migrations.v1.resources
 C:\data\projects\mdk\web\server\model\obj\Debug\model.csproj.GenerateResource.cache

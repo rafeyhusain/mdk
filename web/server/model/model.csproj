@@ -37,8 +37,26 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.2\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.2\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.4.0.0\lib\net451\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.4.0.0\lib\net451\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.4.0.0\lib\net451\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -46,6 +64,7 @@
     <Reference Include="System.Net.Http.Formatting, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.6\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Cors, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.6\lib\net45\System.Web.Cors.dll</HintPath>
     </Reference>
@@ -63,23 +82,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CarDbSeed.cs" />
-    <Compile Include="FuelType.cs" />
-    <Compile Include="Grade.cs" />
-    <Compile Include="Door.cs" />
-    <Compile Include="Color.cs" />
-    <Compile Include="Migrations\201809201430329_v1.cs" />
-    <Compile Include="Migrations\201809201430329_v1.Designer.cs">
-      <DependentUpon>201809201430329_v1.cs</DependentUpon>
+    <Compile Include="Auth\Account.cs" />
+    <Compile Include="Auth\ApplicationOAuthProvider.cs" />
+    <Compile Include="Auth\AuthorizeAttribute.cs" />
+    <Compile Include="Auth\ApplicationUser.cs" />
+    <Compile Include="Cache\Cache.cs" />
+    <Compile Include="Car\Country.cs" />
+    <Compile Include="Db\CarDbSeed.cs" />
+    <Compile Include="Car\FuelType.cs" />
+    <Compile Include="Car\Grade.cs" />
+    <Compile Include="Car\Door.cs" />
+    <Compile Include="Car\Color.cs" />
+    <Compile Include="Car\Model.cs" />
+    <Compile Include="Car\Make.cs" />
+    <Compile Include="Db\CarDb.cs" />
+    <Compile Include="Car\CarFilter.cs" />
+    <Compile Include="Car\CarSummary.cs" />
+    <Compile Include="Car\Car.cs" />
+    <Compile Include="Db\CarDbInitializer.cs" />
+    <Compile Include="Db\CarDbContext.cs" />
+    <Compile Include="Migrations\201809281140342_v1.cs" />
+    <Compile Include="Migrations\201809281140342_v1.Designer.cs">
+      <DependentUpon>201809281140342_v1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Model.cs" />
-    <Compile Include="Make.cs" />
-    <Compile Include="CarDb.cs" />
-    <Compile Include="CarFilter.cs" />
-    <Compile Include="CarSummary.cs" />
-    <Compile Include="Car.cs" />
-    <Compile Include="CarDbInitializer.cs" />
-    <Compile Include="CarDbContext.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -94,8 +119,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201809201430329_v1.resx">
-      <DependentUpon>201809201430329_v1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201809281140342_v1.resx">
+      <DependentUpon>201809281140342_v1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

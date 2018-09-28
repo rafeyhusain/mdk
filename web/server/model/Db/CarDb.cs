@@ -8,14 +8,16 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 using EntityFrameworkPaginate;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System.Security.Claims;
+using System.Collections;
 
 namespace model
 {
     public class CarDb
     {
-        private static Dictionary<string, Object> options = null;
-
-        public Page<Car> GetCars(CarFilter f)
+        public static Page<Car> GetCars(CarFilter f)
         {
             Page<Car> list;
             var filters = new Filters<Car>();
@@ -52,26 +54,76 @@ namespace model
             return list;
         }
 
-        public Dictionary<string, Object> GetOptions()
+        public static Account GetUserClaims()
         {
-            if (CarDb.options != null)
+            var identityClaims = (ClaimsIdentity) System.Web.HttpContext.Current.User.Identity;
+            IEnumerable<Claim> claims = identityClaims.Claims;
+            Account account = new Account()
             {
-                return CarDb.options;
+                UserName = identityClaims.FindFirst("Username").Value,
+                Email = identityClaims.FindFirst("Email").Value,
+                FirstName = identityClaims.FindFirst("FirstName").Value,
+                LastName = identityClaims.FindFirst("LastName").Value,
+                LoggedOn = identityClaims.FindFirst("LoggedOn").Value
+            };
+            return account;
+        }
+
+        public static IdentityResult Register(Account account)
+        {
+            var userStore = new UserStore<ApplicationUser>(new CarDbContext());
+            var manager = new UserManager<ApplicationUser>(userStore);
+            var user = new ApplicationUser() { UserName = account.UserName, Email = account.Email };
+            user.FirstName = account.FirstName;
+            user.LastName = account.LastName;
+            manager.PasswordValidator = new PasswordValidator
+            {
+                RequiredLength = 3
+            };
+            IdentityResult result = manager.Create(user, account.Password);
+            manager.AddToRoles(user.Id, account.Roles);
+            return result;
+        }
+
+        public static Dictionary<string, Object> GetOptions()
+        {
+            if (Cache.Options != null)
+            {
+                return Cache.Options;
             }
 
-            CarDb.options = new Dictionary<string, object>();
+            Cache.Options = new Dictionary<string, object>();
 
             using (var context = new CarDbContext())
             {
-                CarDb.options.Add("Makes", context.Makes.ToList());
-                CarDb.options.Add("Models", (from x in context.Models select new { Id = x.Id, Caption = x.Caption, MakeId = x.Make.Id }).ToList());
-                CarDb.options.Add("Colors", context.Colors.ToList());
-                CarDb.options.Add("FuelTypes", context.FuelTypes.ToList());
-                CarDb.options.Add("Grades", context.Grades.ToList());
-                CarDb.options.Add("Doors", context.Doors.ToList());
+                Cache.Options.Add("Makes", context.Makes.ToList());
+                Cache.Options.Add("Models", (from x in context.Models select new { Id = x.Id, Caption = x.Caption, MakeId = x.Make.Id }).ToList());
+                Cache.Options.Add("Colors", context.Colors.ToList());
+                Cache.Options.Add("FuelTypes", context.FuelTypes.ToList());
+                Cache.Options.Add("Grades", context.Grades.ToList());
+                Cache.Options.Add("Doors", context.Doors.ToList());
             }
 
-            return options;
+            return Cache.Options;
+        }
+
+        public static bool ResetOptions()
+        {
+            Cache.Options = null;
+
+            return true;
+        }
+
+        public static IList GetRoles()
+        {
+            var roleStore = new RoleStore<IdentityRole>(new CarDbContext());
+            var roleMngr = new RoleManager<IdentityRole>(roleStore);
+
+            var list = roleMngr.Roles
+                .Select(x => new { x.Id, x.Name })
+                .ToList();
+
+            return list;
         }
     }
 }
