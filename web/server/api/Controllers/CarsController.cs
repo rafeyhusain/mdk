@@ -61,9 +61,9 @@ namespace api.Controllers
         [Route("api/options/reset")]
         public HttpResponseMessage ResetOptions()
         {
-            var list = CarDb.ResetOptions();
+            var result = CarDb.ResetOptions();
 
-            return CreateJsonResponse(list);
+            return CreateJsonResponse(result);
         }
 
         [Route("api/User/Register")]

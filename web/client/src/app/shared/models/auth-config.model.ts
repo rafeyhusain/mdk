@@ -7,5 +7,3 @@ export const authConfig: AuthConfig = {
   scope: 'openid profile email',
   strictDiscoveryDocumentValidation: false
 }
-
-

@@ -4,7 +4,9 @@ import { FormsModule }    from '@angular/forms';
 import { HttpClientModule }    from '@angular/common/http';
 
 import { AppRoutingModule }     from './app-routing.module';
-import { OAuthModule } from 'angular-oauth2-oidc';
+
+import { SocialLoginModule, AuthServiceConfig } from "angularx-social-login";
+import { GoogleLoginProvider, FacebookLoginProvider, LinkedInLoginProvider} from "angularx-social-login";
 
 import { AppComponent }         from './app.component';
 import { CarComponent } from './public/components/car/car.component';
@@ -15,14 +17,34 @@ import { CarFilterComponent } from './public/components/car-filter/car-filter.co
 import { PagerComponent } from './public/components/pager/pager.component';
 import { FilterCheckboxComponent } from './public/components/filter-checkbox/filter-checkbox.component';
 import { FilterSliderComponent } from './public/components/filter-slider/filter-slider.component';
+import { SigninComponent } from './public/pages/secure/signin/signin.component';
+import { SignupComponent } from './public/pages/signup/signup.component';
 
+const config = new AuthServiceConfig([
+  {
+    id: GoogleLoginProvider.PROVIDER_ID,
+    provider: new GoogleLoginProvider('624796833023-clhjgupm0pu6vgga7k5i5bsfp6qp6egh.apps.googleusercontent.com')
+  },
+  {
+    id: FacebookLoginProvider.PROVIDER_ID,
+    provider: new FacebookLoginProvider('561602290896109')
+  },
+  {
+    id: LinkedInLoginProvider.PROVIDER_ID,
+    provider: new LinkedInLoginProvider('78iqy5cu2e1fgr')
+  }
+]); 
+
+export function provideConfig() {
+  return config;
+}
 @NgModule({
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
-    OAuthModule.forRoot()
+    SocialLoginModule
   ],
   declarations: [
     AppComponent,
@@ -33,9 +55,16 @@ import { FilterSliderComponent } from './public/components/filter-slider/filter-
     CarFilterComponent,
     PagerComponent,
     FilterCheckboxComponent,
-    FilterSliderComponent
+    FilterSliderComponent,
+    SigninComponent,
+    SignupComponent
+  ],
+  providers: [
+    {
+      provide: AuthServiceConfig,
+      useFactory: provideConfig
+    }
   ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }
-
