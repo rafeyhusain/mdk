@@ -1,8 +1,16 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 
-import { AuthService } from "angularx-social-login";
-import { FacebookLoginProvider, GoogleLoginProvider, LinkedInLoginProvider } from "angularx-social-login";
-import { SocialUser } from "angularx-social-login";
+import {
+    AuthService,
+    SocialUser,
+    GoogleLoginProvider,
+    FacebookLoginProvider,
+    LinkedInLoginProvider
+} from "angularx-social-login";
+
+import { UserService } from '../../../../services/user/user.service';
 
 @Component({
   selector: 'app-signin',
@@ -13,13 +21,15 @@ export class SigninComponent implements OnInit {
     private user: SocialUser;
     private loggedIn: boolean;
 
-    constructor(private authService: AuthService) { }
+    constructor(private userService : UserService,
+        private router : Router,
+        private authService: AuthService) { }
 
     ngOnInit() {
         this.authService.authState.subscribe((user) => {
             this.user = user;
             this.loggedIn = (user != null);
-            });
+        });
     }
 
     signInWithGoogle(): void {
@@ -37,4 +47,15 @@ export class SigninComponent implements OnInit {
     signOut(): void {
         this.authService.signOut();
     }
+
+    OnSubmit(userName,password){
+        this.userService.signin(userName, password).subscribe((data : any)=>{
+            this.loggedIn = (data.access_token != null);
+            localStorage.setItem('userToken', data.access_token);
+            this.router.navigate(['/home']);
+       },
+       (err : HttpErrorResponse)=>{
+           console.error('SignIn Error', err);
+       });
+     }
 }
