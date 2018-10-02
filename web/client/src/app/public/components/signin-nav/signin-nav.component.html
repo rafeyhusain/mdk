@@ -1,0 +1,7 @@
+<span *ngIf="!userClaims">
+    <a href="#" (click)="signIn()">Sign In</a>
+</span>
+<span *ngIf="userClaims">
+    <span>Welcome <b>{{userClaims.UserName}}</b></span>&nbsp;
+    <a href="#" (click)="signOut()">Sign Out</a>
+</span>

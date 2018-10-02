@@ -32,6 +32,8 @@ import { FilterSliderComponent } from './public/components/filter-slider/filter-
 import { SigninComponent } from './public/pages/secure/signin/signin.component';
 import { SignupComponent } from './public/pages/signup/signup.component';
 import { UserComponent } from './public/pages/user/user.component';
+import { SigninNavComponent } from './public/components/signin-nav/signin-nav.component';
+import { UserProfileComponent } from './public/pages/user-profile/user-profile.component';
 
 //SERVICE
 import { UserService } from './services/user/user.service';
@@ -74,7 +76,9 @@ export function provideConfig() {
     FilterSliderComponent,
     SigninComponent,
     SignupComponent,
-    UserComponent
+    UserComponent,
+    SigninNavComponent,
+    UserProfileComponent
   ],
   providers: [
     UserService,

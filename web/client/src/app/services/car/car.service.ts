@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';
+import { environment } from '../../../environments/environment';
+
+import { MessageService } from '../message/message.service';
+
 import { CarModel } from '../../shared/models/car.model';
 import { CarPageModel } from '../../shared/models/car-page.model';
 import { CarFilterModel } from '../../shared/models/car-filter.model';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { MessageService } from '../message/message.service';
-
-import { Observable, of } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
 import { OptionsModel } from '../../shared/models/options.model';
 
 const httpOptions = {
@@ -16,7 +18,6 @@ const httpOptions = {
 @Injectable({ providedIn: 'root' })
 export class CarService {
  
-  private baseUrl = 'http://localhost:55450';  // URL to web api
   private options: OptionsModel;
 
   constructor(
@@ -25,21 +26,21 @@ export class CarService {
   
   /** GET car by id. Will 404 if id not found */
   getCar(id: number): Observable<CarModel> {
-    const url = `${this.baseUrl}/api/cars/${id}`;
+    const url = `${ environment.apiUrl }/api/cars/${id}`;
 
     return this.http.get<CarModel>(url).pipe(
-      tap(_ => this.log(`fetched car id=${id}`)),
-      catchError(this.handleError<CarModel>(`ERROR in getCar id=${id}`))
+      tap(_ => this.messageService.log(`fetched car id=${id}`)),
+      catchError(this.messageService.error<CarModel>(`getCar id=${id}`))
     );
   }
 
   /* GET cars which match to search filter */
   getCars(filter: CarFilterModel): Observable<CarPageModel> {
+    const url = `${ environment.apiUrl }/api/cars/search`;
+
     if (filter == null) {
       return null;
     }
-
-    const url = `${this.baseUrl}/api/cars/search`;
 
     return this.http.post<CarPageModel>(url, filter, httpOptions).pipe(
       tap((result: CarPageModel) => {
@@ -47,24 +48,25 @@ export class CarService {
         model.prepare(result);
         result = model;
       }),
-      catchError(this.handleError<CarPageModel>('ERROR in getCars'))
+      catchError(this.messageService.error<CarPageModel>('getCars'))
     );
   }
 
   getOptions(): Observable<OptionsModel> {
+    const url = `${ environment.apiUrl }/api/options`;
+
     if (this.options != null) {
       return of(this.options);
     }
-
-    const url = `${this.baseUrl}/api/cars/options`;
 
     return this.http.get<CarModel>(url).pipe(
       tap((result: OptionsModel) => {
         let model = new OptionsModel(); // result is just raw data without functions
         model.prepare(result);
+        this.options = model;
         result = model;
       }),
-      catchError(this.handleError<CarModel>(`ERROR in getOptions`))
+      catchError(this.messageService.error<CarModel>(`getOptions`))
     );
   }
 
@@ -72,53 +74,28 @@ export class CarService {
  
   /** POST: add a new car to the server */
   addCar (car: CarModel): Observable<CarModel> {
-    return this.http.post<CarModel>(this.baseUrl, car, httpOptions).pipe(
-      tap((car: CarModel) => this.log(`added car w/ id=${car.CarId}`)),
-      catchError(this.handleError<CarModel>('addCar'))
+    return this.http.post<CarModel>( environment.apiUrl , car, httpOptions).pipe(
+      tap((car: CarModel) => this.messageService.log(`added car w/ id=${car.CarId}`)),
+      catchError(this.messageService.error<CarModel>('addCar'))
     );
   }
  
   /** DELETE: delete the car from the server */
   deleteCar (car: CarModel | number): Observable<CarModel> {
     const id = typeof car === 'number' ? car : car.CarId;
-    const url = `${this.baseUrl}/${id}`;
+    const url = `${ environment.apiUrl }/${id}`;
  
     return this.http.delete<CarModel>(url, httpOptions).pipe(
-      tap(_ => this.log(`deleted car id=${id}`)),
-      catchError(this.handleError<CarModel>('deleteCar'))
+      tap(_ => this.messageService.log(`deleted car id=${id}`)),
+      catchError(this.messageService.error<CarModel>('deleteCar'))
     );
   }
  
   /** PUT: update the car on the server */
   updateCar (car: CarModel): Observable<any> {
-    return this.http.put(this.baseUrl, car, httpOptions).pipe(
-      tap(_ => this.log(`updated car id=${car.CarId}`)),
-      catchError(this.handleError<any>('updateCar'))
+    return this.http.put( environment.apiUrl , car, httpOptions).pipe(
+      tap(_ => this.messageService.log(`updated car id=${car.CarId}`)),
+      catchError(this.messageService.error<any>('updateCar'))
     );
-  }
-
-  /**
-   * Handle Http operation that failed.
-   * Let the app continue.
-   * @param operation - name of the operation that failed
-   * @param result - optional value to return as the observable result
-   */
-  private handleError<T> (operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
- 
-      // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
- 
-      // TODO: better job of transforming error for user consumption
-      this.log(`${operation} failed: ${error.message}`);
- 
-      // Let the app keep running by returning an empty result.
-      return of(result as T);
-    };
-  }
- 
-  /** Log a CarService message with the MessageService */
-  private log(message: string) {
-    this.messageService.add(`CarService: ${message}`);
   }
 }

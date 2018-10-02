@@ -13,7 +13,7 @@ using Authorize = model.AuthorizeAttribute;
 
 namespace api.Controllers
 {
-    public class CarsController : ApiController
+    public class CarController : ApiController
     {
         [HttpGet]
         [Route("api/cars/{id}")]
@@ -27,7 +27,7 @@ namespace api.Controllers
 
             var list = CarDb.GetCars(filters);
 
-            return CreateJsonResponse(list);
+            return CarDb.CreateJsonResponse(list);
         }
 
         [HttpPost]
@@ -45,7 +45,7 @@ namespace api.Controllers
 
             var list = CarDb.GetCars(filters);
 
-            return CreateJsonResponse(list);
+            return CarDb.CreateJsonResponse(list);
         }
 
         [HttpGet]
@@ -54,7 +54,7 @@ namespace api.Controllers
         {
             var list = CarDb.GetOptions();
 
-            return CreateJsonResponse(list);
+            return CarDb.CreateJsonResponse(list);
         }
 
         [HttpGet]
@@ -63,48 +63,7 @@ namespace api.Controllers
         {
             var result = CarDb.ResetOptions();
 
-            return CreateJsonResponse(result);
-        }
-
-        [Route("api/User/Register")]
-        [HttpPost]
-        [AllowAnonymous]
-        public IdentityResult Register(Account account)
-        {
-            return CarDb.Register(account);
-        }
-
-        [HttpGet]
-        [Route("api/GetUserClaims")]
-        public Account GetUserClaims()
-        {
-            return CarDb.GetUserClaims();
-        }
-
-        [HttpGet]
-        [Authorize(Roles = "Author,Reader")]
-        [Route("api/ForAuthorOrReader")]
-        public string ForAuthorOrReader()
-        {
-            return "For author/reader role";
-        }
-
-        [HttpGet]
-        [Route("api/user/roles")]
-        [AllowAnonymous]
-        public HttpResponseMessage GetRoles()
-        {
-            var list = CarDb.GetRoles();
-
-            return CreateJsonResponse(list);
-        }
-
-        public static HttpResponseMessage CreateJsonResponse(object value)
-        {
-            return new HttpResponseMessage()
-            {
-                Content = new StringContent(JsonConvert.SerializeObject(value), System.Text.Encoding.UTF8, "application/json")
-            };
+            return CarDb.CreateJsonResponse(result);
         }
     }
 }

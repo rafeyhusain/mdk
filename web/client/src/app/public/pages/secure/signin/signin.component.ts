@@ -48,11 +48,12 @@ export class SigninComponent implements OnInit {
         this.authService.signOut();
     }
 
-    OnSubmit(userName,password){
+    onSubmit(userName,password){
         this.userService.signin(userName, password).subscribe((data : any)=>{
             this.loggedIn = (data.access_token != null);
             localStorage.setItem('userToken', data.access_token);
             this.router.navigate(['/home']);
+            console.error('SignIn Success', data);
        },
        (err : HttpErrorResponse)=>{
            console.error('SignIn Error', err);

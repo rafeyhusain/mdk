@@ -88,6 +88,9 @@
     <Compile Include="Auth\ApplicationUser.cs" />
     <Compile Include="Cache\Cache.cs" />
     <Compile Include="Car\Country.cs" />
+    <Compile Include="Db\CarDb.Options.cs" />
+    <Compile Include="Db\CarDb.User.cs" />
+    <Compile Include="Db\CarDb.Car.cs" />
     <Compile Include="Db\CarDbSeed.cs" />
     <Compile Include="Car\FuelType.cs" />
     <Compile Include="Car\Grade.cs" />

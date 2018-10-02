@@ -4,8 +4,6 @@ import 'rxjs/add/operator/do';
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 
-import { UserService } from '../../../services/user/user.service';
-
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
@@ -24,12 +22,12 @@ export class AuthInterceptor implements HttpInterceptor {
                 succ => { },
                 err => {
                     if (err.status === 401)
-                        this.router.navigateByUrl('/login');
+                        this.router.navigateByUrl('/signin');
                 }
                 );
         }
         else {
-            this.router.navigateByUrl('/login');
+            this.router.navigateByUrl('/signin');
         }
     }
 }
