@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../../../services/user/user.service';
+import { AuthService } from 'angularx-social-login';
 
 @Component({
   selector: 'app-signin-nav',
@@ -8,22 +9,19 @@ import { UserService } from '../../../services/user/user.service';
   styleUrls: ['./signin-nav.component.css']
 })
 export class SigninNavComponent implements OnInit {
-  userClaims: any;
-
-  constructor(private router: Router, private userService: UserService) { }
+  constructor(
+    private router: Router, 
+    private userService: UserService,
+    private authService: AuthService) { }
 
   ngOnInit() {
-    this.userService.getUserClaims().subscribe((data: any) => {
-      this.userClaims = data;
-    });
-  }
-
-  signIn() {
-    this.router.navigate(['/signin']);
   }
 
   signOut() {
-    localStorage.removeItem('userToken');
+    if (this.userService.isSocial()) {
+      this.authService.signOut();
+    }
+    this.userService.removeToken();
     this.router.navigate(['/signin']);
   }
 }

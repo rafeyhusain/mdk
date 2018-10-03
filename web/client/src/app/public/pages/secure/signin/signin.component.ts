@@ -18,17 +18,22 @@ import { UserService } from '../../../../services/user/user.service';
   styleUrls: ['./signin.component.css']
 })
 export class SigninComponent implements OnInit {
-    private user: SocialUser;
-    private loggedIn: boolean;
+    user: SocialUser;
+    userName: string;
+    password: string;
 
-    constructor(private userService : UserService,
+    constructor(
+        private userService : UserService,
         private router : Router,
         private authService: AuthService) { }
 
     ngOnInit() {
+        this.userName = 'admin';
+        this.password = 'admin';
+
         this.authService.authState.subscribe((user) => {
             this.user = user;
-            this.loggedIn = (user != null);
+            this.userService.setTokenForSocialUser(user);
         });
     }
 
@@ -43,17 +48,11 @@ export class SigninComponent implements OnInit {
     signInWithLinkedIn(): void {
         this.authService.signIn(LinkedInLoginProvider.PROVIDER_ID);
     }  
-
-    signOut(): void {
-        this.authService.signOut();
-    }
-
-    onSubmit(userName,password){
-        this.userService.signin(userName, password).subscribe((data : any)=>{
-            this.loggedIn = (data.access_token != null);
-            localStorage.setItem('userToken', data.access_token);
+      
+    onSubmit(){
+        this.userService.signin(this.userName, this.password).subscribe((user : any)=>{
+            this.userService.setToken(user);
             this.router.navigate(['/home']);
-            console.error('SignIn Success', data);
        },
        (err : HttpErrorResponse)=>{
            console.error('SignIn Error', err);

@@ -7,36 +7,35 @@
               <ul class="list-style
                  -none">
                  <li><i class="fa fa-star"> </i> Results Found <span class="float-right">(39)</span></li>
-                 <li><i class="fa fa-shopping-cart"> </i> Compare Vehicles <span class="float-right">(10)</span></li>
               </ul>
            </div>
            <div class="clearfix">
               <ul class="list-group">
-                 <app-filter-checkbox [caption]="'Make'" [items]=options.Makes></app-filter-checkbox>
+                 <app-filter-checkbox [caption]="'Make'" [items]=options?.Makes></app-filter-checkbox>
               </ul>
               <ul class="list-group">
-                 <app-filter-checkbox [caption]="'Model'" [items]=options.Models></app-filter-checkbox>
+                 <app-filter-checkbox [caption]="'Model'" [items]=options?.Models></app-filter-checkbox>
               </ul>
               <ul class="list-group">
-                <app-filter-checkbox [caption]="'Color'" [items]=options.Colors></app-filter-checkbox>
+                <app-filter-checkbox [caption]="'Color'" [items]=options?.Colors></app-filter-checkbox>
              </ul>
              <ul class="list-group">
-              <app-filter-checkbox [caption]="'Fuel Type'" [items]=options.FuelTypes></app-filter-checkbox>
+              <app-filter-checkbox [caption]="'Fuel Type'" [items]=options?.FuelTypes></app-filter-checkbox>
              </ul>
              <ul class="list-group">
-              <app-filter-checkbox [caption]="'Grade'" [items]=options.Grades></app-filter-checkbox>
+              <app-filter-checkbox [caption]="'Grade'" [items]=options?.Grades></app-filter-checkbox>
              </ul>
              <ul class="list-group">
-              <app-filter-checkbox [caption]="'Door'" [items]=options.Doors></app-filter-checkbox>
+              <app-filter-checkbox [caption]="'Door'" [items]=options?.Doors></app-filter-checkbox>
              </ul>
              <ul class="list-group">
-                <app-filter-slider [caption]="'Price Range'" [items]=options.Doors></app-filter-slider>
+                <app-filter-slider [caption]="'Price Range'" [items]=options?.Price></app-filter-slider>
               </ul>
               <ul class="list-group">
-                <app-filter-slider [caption]="'Select Year'" [items]=options.Year></app-filter-slider>
+                <app-filter-slider [caption]="'Select Year'" [items]=options?.Year></app-filter-slider>
               </ul>
               <ul class="list-group">
-                  <app-filter-slider [caption]="'Select CC'" [items]=options.Displacements></app-filter-slider>
+                  <app-filter-slider [caption]="'Select CC'" [items]=options?.Displacements></app-filter-slider>
               </ul>
           </div>
         </div>
@@ -47,34 +46,6 @@
   </div>
   <div class="col-lg-9 col-md-8">
      <div class="sorting-options-main">
-        <div class="row">
-           <div class="col-lg-4">
-              <div class="price-slide">
-                 <div class="price">
-                    <label for="amount">Price Range</label>
-                    <input type="text" id="amount" class="amount" value="$50 - $300" />
-                    <div id="slider-range"></div>
-                 </div>
-              </div>
-           </div>
-           <div class="col-lg-4">
-              <div class="price-slide-2">
-                 <div class="price">
-                    <label for="amount-2">Price Range</label>
-                    <input type="text" id="amount-2" class="amount" value="$50 - $300" />
-                    <div id="slider-range-2"></div>
-                 </div>
-              </div>
-           </div>
-           <div class="col-lg-4">
-              <div class="price-search">
-                 <span>Price search</span> 
-                 <div class="search"> <i class="fa fa-search"></i> 
-                    <input type="search" class="form-control placeholder" placeholder="Search....">
-                 </div>
-              </div>
-           </div>
-        </div>
         <div class="row sorting-options">
            <div class="col-lg-5">
               <div class="change-view-button"> <a class="active" href="#"> <i class="fa fa-th"></i> 

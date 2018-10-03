@@ -25,8 +25,6 @@ export class CarListComponent implements OnInit {
   }
   
   setPage(pageNo: number) {
-    console.log('PageNo', pageNo);
-
     this.filter.CurrentPage = pageNo;
     this.filter.SortBy = 1;
     this.filter.PageSize = 10;

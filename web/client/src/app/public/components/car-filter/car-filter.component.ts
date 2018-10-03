@@ -21,8 +21,8 @@ export class CarFilterComponent implements OnInit {
     this.filter.SortBy = 1;
 
     this.carService.getOptions()
-    .subscribe(options => this.options = options);
-
-    console.log('OPTIONS', this.options);
+    .subscribe((options) => {
+      this.options = options;
+    });
   }
 }

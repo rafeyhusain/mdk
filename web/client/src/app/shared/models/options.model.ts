@@ -21,7 +21,5 @@ export class OptionsModel {
         this.FuelTypes = model.FuelTypes;
         this.Grades = model.Grades;
         this.Doors = model.Doors;
-
-        console.log('OPTIONS', this);
     }
 }

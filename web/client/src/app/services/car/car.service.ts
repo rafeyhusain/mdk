@@ -12,14 +12,12 @@ import { CarFilterModel } from '../../shared/models/car-filter.model';
 import { OptionsModel } from '../../shared/models/options.model';
 
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  headers: new HttpHeaders({ })
 };
 
 @Injectable({ providedIn: 'root' })
 export class CarService {
  
-  private options: OptionsModel;
-
   constructor(
     private http: HttpClient,
     private messageService: MessageService) { }
@@ -28,7 +26,9 @@ export class CarService {
   getCar(id: number): Observable<CarModel> {
     const url = `${ environment.apiUrl }/api/cars/${id}`;
 
-    return this.http.get<CarModel>(url).pipe(
+    var options = { headers : new HttpHeaders({'No-Auth':'True'})};
+
+    return this.http.get<CarModel>(url, options).pipe(
       tap(_ => this.messageService.log(`fetched car id=${id}`)),
       catchError(this.messageService.error<CarModel>(`getCar id=${id}`))
     );
@@ -42,7 +42,9 @@ export class CarService {
       return null;
     }
 
-    return this.http.post<CarPageModel>(url, filter, httpOptions).pipe(
+    var options = { headers : new HttpHeaders({'No-Auth':'True', 'Content-Type': 'application/json'}) };
+    
+    return this.http.post<CarPageModel>(url, filter, options).pipe(
       tap((result: CarPageModel) => {
         let model = new CarPageModel(); // result is just raw data without functions
         model.prepare(result);
@@ -55,23 +57,18 @@ export class CarService {
   getOptions(): Observable<OptionsModel> {
     const url = `${ environment.apiUrl }/api/options`;
 
-    if (this.options != null) {
-      return of(this.options);
-    }
+    var options = { headers : new HttpHeaders({'No-Auth':'True'}) };
 
-    return this.http.get<CarModel>(url).pipe(
+    return this.http.get<CarModel>(url, options).pipe(
       tap((result: OptionsModel) => {
         let model = new OptionsModel(); // result is just raw data without functions
         model.prepare(result);
-        this.options = model;
         result = model;
       }),
       catchError(this.messageService.error<CarModel>(`getOptions`))
     );
   }
 
-  //////// Save methods //////////
- 
   /** POST: add a new car to the server */
   addCar (car: CarModel): Observable<CarModel> {
     return this.http.post<CarModel>( environment.apiUrl , car, httpOptions).pipe(

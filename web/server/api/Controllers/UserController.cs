@@ -25,6 +25,7 @@ namespace api.Controllers
 
         [HttpGet]
         [Route("api/user/claims")]
+        [AllowAnonymous]
         public Account GetUserClaims()
         {
             return CarDb.GetUserClaims();
@@ -32,7 +33,7 @@ namespace api.Controllers
 
         [HttpGet]
         [Route("api/user/roles")]
-        [AllowAnonymous]
+        [Authorize]
         public HttpResponseMessage GetRoles()
         {
             var list = CarDb.GetRoles();

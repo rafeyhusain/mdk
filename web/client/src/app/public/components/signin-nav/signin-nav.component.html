@@ -1,7 +1,10 @@
-<span *ngIf="!userClaims">
-    <a href="#" (click)="signIn()">Sign In</a>
+<a routerLink="home" routerLinkActive='active'>Home</a>&nbsp;
+<span *ngIf="!userService.isAuthenticated()">
+    <a routerLink="signin" routerLinkActive='active'>Sign In</a>&nbsp;
+    <a routerLink="signup" routerLinkActive='active'>Sign Up</a>&nbsp;
 </span>
-<span *ngIf="userClaims">
-    <span>Welcome <b>{{userClaims.UserName}}</b></span>&nbsp;
-    <a href="#" (click)="signOut()">Sign Out</a>
+<span *ngIf="userService.isAuthenticated()">
+    <span>Welcome <b>{{userService.getName()}}</b></span>&nbsp;
+    <a routerLink="user-profile">Profile</a>&nbsp;
+    <a routerLink="signin" (click)="signOut()">Sign Out</a>
 </span>

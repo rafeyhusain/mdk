@@ -19,6 +19,9 @@ import { appRoutes }     from './app.routes';
 import { AuthGuard } from './shared/common/auth/auth.guard';
 import { AuthInterceptor } from './shared/common/auth/auth.interceptor';
 
+//SERVICE
+import { UserService } from './services/user/user.service';
+
 // COMPONENT
 import { AppComponent }         from './app.component';
 import { CarComponent } from './public/components/car/car.component';
@@ -34,28 +37,36 @@ import { SignupComponent } from './public/pages/signup/signup.component';
 import { UserComponent } from './public/pages/user/user.component';
 import { SigninNavComponent } from './public/components/signin-nav/signin-nav.component';
 import { UserProfileComponent } from './public/pages/user-profile/user-profile.component';
+import { HeaderComponent } from './public/components/header/header.component';
+import { FooterComponent } from './public/components/footer/footer.component';
+import { MasterComponent } from './public/components/master/master.component';
 
-//SERVICE
-import { UserService } from './services/user/user.service';
+const config1 = new AuthServiceConfig([
+  {
+    id: GoogleLoginProvider.PROVIDER_ID,
+    provider: new GoogleLoginProvider('624796833023-clhjgupm0pu6vgga7k5i5bsfp6qp6egh.apps.googleusercontent.com')
+  }
+]); 
 
 const config = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,
     provider: new GoogleLoginProvider('624796833023-clhjgupm0pu6vgga7k5i5bsfp6qp6egh.apps.googleusercontent.com')
   },
-  // {
-  //   id: FacebookLoginProvider.PROVIDER_ID,
-  //   provider: new FacebookLoginProvider('561602290896109')
-  // },
-  // {
-  //   id: LinkedInLoginProvider.PROVIDER_ID,
-  //   provider: new LinkedInLoginProvider('78iqy5cu2e1fgr')
-  // }
+  {
+    id: FacebookLoginProvider.PROVIDER_ID,
+    provider: new FacebookLoginProvider('561602290896109')
+  },
+  {
+    id: LinkedInLoginProvider.PROVIDER_ID,
+    provider: new LinkedInLoginProvider('78iqy5cu2e1fgr')
+  }
 ]); 
 
 export function provideConfig() {
-  return config;
+  return config1;
 } 
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -78,7 +89,10 @@ export function provideConfig() {
     SignupComponent,
     UserComponent,
     SigninNavComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    HeaderComponent,
+    FooterComponent,
+    MasterComponent
   ],
   providers: [
     UserService,
@@ -91,7 +105,8 @@ export function provideConfig() {
       provide : HTTP_INTERCEPTORS,
       useClass : AuthInterceptor,
       multi : true
-    }],
+    }
+  ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

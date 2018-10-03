@@ -24,27 +24,75 @@ export class UserService {
       FirstName: user.FirstName,
       LastName: user.LastName
     }
-    var reqHeader = new HttpHeaders({'No-Auth':'True'});
-    return this.http.post(url, body,{headers : reqHeader});
+
+    var options = { headers : new HttpHeaders({'No-Auth':'True'}) };
+    
+    return this.http.post(url, body, options);
   }
 
   signin(userName, password) {
     const url = `${ environment.apiUrl }/api/user/token`;
 
-    var data = "username=" + userName + "&password=" + password + "&grant_type=password";
-    var reqHeader = new HttpHeaders({ 'Content-Type': 'application/x-www-urlencoded','No-Auth':'True' });
-    return this.http.post(url, data, { headers: reqHeader });
+    var body = `username=${ userName }&password=${ password }&grant_type=password`;
+    var options = { headers : new HttpHeaders(
+      { 
+        'Content-Type': 'application/x-www-urlencoded',
+        'No-Auth':'True'
+      })
+    };
+
+    return this.http.post(url, body, options);
   }
 
   getUserClaims():Observable<any> {
     const url = `${ environment.apiUrl }/api/user/claims`;
 
-    return this.http.get<any>(url).pipe(
+    var options = { headers : new HttpHeaders({'No-Auth':'True'}) };
+
+    return this.http.get<any>(url, options).pipe(
       tap((result: any) => {
       }),
       catchError(this.messageService.error<any>(`getUserClaims`))
     );
+  }
 
-    return this.http.get(environment.apiUrl+'/api/');
+  setToken(user: object) {
+    if (user == null) {
+      return;
+    }
+    
+    localStorage.setItem('token', user['token']);
+    localStorage.setItem('name', user['name']);
+    localStorage.setItem('social', "false");
+  }
+
+  setTokenForSocialUser(user: object) {
+    if (user == null) {
+      return;
+    }
+
+    localStorage.setItem('token', user['authToken']);
+    localStorage.setItem('name', user['firstName']);
+    localStorage.setItem('social', "true");
+  }
+
+  getToken() {
+    return localStorage.getItem('token');
+  }
+
+  getName() {
+    return localStorage.getItem('name');
+  }
+
+  removeToken() {
+    localStorage.removeItem('token');
+  }
+
+  isAuthenticated() {
+    return this.getToken() != null;
+  }
+
+  isSocial() {
+    return localStorage.getItem('social') == "true";
   }
 }
