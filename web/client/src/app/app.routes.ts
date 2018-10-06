@@ -6,6 +6,8 @@ import { SignupComponent } from './public/pages/signup/signup.component';
 import { AuthGuard } from './shared/common/auth/auth.guard';
 import { HomeComponent } from './public/pages/home/home.component';
 import { CarFilterComponent } from './public/components/car-filter/car-filter.component';
+import { SignupDoneComponent } from './public/pages/signup-done/signup-done.component';
+import { PageNotFoundComponent } from './public/pages/page-not-found/page-not-found.component';
 
 export const appRoutes: Routes = [
     { path: '', component: CarFilterComponent },
@@ -13,4 +15,6 @@ export const appRoutes: Routes = [
     { path: 'user-profile', component: UserProfileComponent, canActivate:[AuthGuard] },
     { path: 'signin', component: SigninComponent },
     { path: 'signup', component: SignupComponent },
+    { path: 'signup-done', component: SignupDoneComponent },
+    { path: "**", component:PageNotFoundComponent }
 ];

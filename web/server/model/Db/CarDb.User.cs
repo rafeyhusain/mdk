@@ -13,6 +13,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using System.Security.Claims;
 using System.Collections;
 using System.Net.Http;
+using System.Security.Policy;
 
 namespace model
 {
@@ -33,20 +34,43 @@ namespace model
             return account;
         }
 
-        public static IdentityResult Register(Account account)
+        public static async IdentityResult Signup(Account account)
         {
             var userStore = new UserStore<ApplicationUser>(new CarDbContext());
             var manager = new UserManager<ApplicationUser>(userStore);
-            var user = new ApplicationUser() { UserName = account.UserName, Email = account.Email };
-            user.FirstName = account.FirstName;
-            user.LastName = account.LastName;
+            var user = new ApplicationUser() { UserName = account.Email, Email = account.Email };
+
             manager.PasswordValidator = new PasswordValidator
             {
                 RequiredLength = 3
             };
+
+            user.FirstName = account.FirstName;
+            user.LastName = account.LastName;
+            account.Roles = new string[] { "User" };
+            account.Password = "12x";
+
             IdentityResult result = manager.Create(user, account.Password);
-            manager.AddToRoles(user.Id, account.Roles);
+            OopsHandler.Handle(result);
+
+            result = manager.AddToRoles(user.Id, account.Roles);
+            OopsHandler.Handle(result);
+
+            string code = await manager.GenerateEmailConfirmationTokenAsync(user.Id);
+            result = await manager.ConfirmEmailAsync(user.Id, code);
+            OopsHandler.Handle(result);
+
+            Mailer.Send(account.Email, @"assets/mail-templates/signup/update", new
+            {
+                url = String.Format("{0}/api/user/activate/{1}", System.Web.HttpContext.Current.Request.Url.Scheme, code)
+            });
+
             return result;
+        }
+
+        public static bool ActivateUser()
+        {
+            return true;
         }
 
         public static IList GetRoles()

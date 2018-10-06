@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpRequest, HttpResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
+import {
+    FormGroup,
+    FormBuilder,
+    Validators,
+    FormControl
+} from '@angular/forms';
 
 import {
     AuthService,
@@ -11,6 +17,8 @@ import {
 } from "angularx-social-login";
 
 import { UserService } from '../../../../services/user/user.service';
+import { MessageService } from '../../../../services/message/message.service';
+import { Http } from '@angular/http';
 
 @Component({
   selector: 'app-signin',
@@ -19,21 +27,25 @@ import { UserService } from '../../../../services/user/user.service';
 })
 export class SigninComponent implements OnInit {
     user: SocialUser;
-    userName: string;
-    password: string;
+    form: FormGroup;
+    err: HttpErrorResponse;
 
     constructor(
         private userService : UserService,
         private router : Router,
-        private authService: AuthService) { }
+        private authService: AuthService,
+        private formBuilder: FormBuilder,
+        private messageService: MessageService) { }
 
     ngOnInit() {
-        this.userName = 'admin';
-        this.password = 'admin';
+        this.form = this.formBuilder.group({
+            email: ['', [Validators.required, Validators.email]],
+            password: ['', [Validators.required]]
+        });
 
         this.authService.authState.subscribe((user) => {
             this.user = user;
-            this.userService.setTokenForSocialUser(user);
+            this.userService.setSocialUser(user);
         });
     }
 
@@ -49,13 +61,19 @@ export class SigninComponent implements OnInit {
         this.authService.signIn(LinkedInLoginProvider.PROVIDER_ID);
     }  
       
+    get f() { return this.form.controls; }
+
     onSubmit(){
-        this.userService.signin(this.userName, this.password).subscribe((user : any)=>{
-            this.userService.setToken(user);
+        if (this.form.invalid) {
+            return;
+        }
+
+        this.userService.signin(this.f.email.value, this.f.password.value).subscribe((user : any)=>{
+            this.userService.setUser(user);
             this.router.navigate(['/home']);
        },
        (err : HttpErrorResponse)=>{
-           console.error('SignIn Error', err);
+           this.err = err;
        });
      }
 }

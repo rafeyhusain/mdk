@@ -5,6 +5,11 @@ using Owin;
 using Microsoft.Owin.Cors;
 using Microsoft.Owin.Security.OAuth;
 using Microsoft.Owin.Host.SystemWeb;
+using System.Net;
+using System.Net.Http;
+using System.Web.Http;
+using System.Net.Http.Formatting;
+using System.Web.Http.ExceptionHandling;
 using model;
 
 [assembly: OwinStartup(typeof(api.Startup))]
@@ -28,6 +33,22 @@ namespace api
 
             app.UseOAuthAuthorizationServer(option);
             app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
+
+            var config = new HttpConfiguration();
+            config.MapHttpAttributeRoutes();
+            config.Formatters.Clear();
+            config.Formatters.Add(new JsonMediaTypeFormatter());
+
+            config.Services.Replace(typeof(IExceptionHandler), new PassthroughHandler());
+
+            config.Routes.MapHttpRoute(
+                name: "DefaultApi",
+                routeTemplate: "api/{controller}/{id}",
+                defaults: new { id = RouteParameter.Optional }
+            );
+
+            app.Use<OopsHandlerMiddleware>()
+            .UseWebApi(config);
         }
     }
 }

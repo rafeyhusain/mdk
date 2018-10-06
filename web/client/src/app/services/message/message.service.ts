@@ -25,7 +25,7 @@ export class MessageService {
  
   err(message: string) {
     console.error(message);
-    this.messages.push(message);
+    //this.messages.push(message);
   }
 
   clear() {

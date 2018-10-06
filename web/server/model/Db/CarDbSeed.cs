@@ -188,7 +188,7 @@ namespace model
 
         private static void AddUser(CarDbContext context)
         {
-            CarDb.Register(new Account
+            CarDb.Signup(new Account
             {
                 Email = "admin@mdkjapan.com",
                 UserName = "admin",
@@ -198,7 +198,7 @@ namespace model
                 Roles = new string[] { "Admin" }
             });
 
-            CarDb.Register(new Account
+            CarDb.Signup(new Account
             {
                 Email = "user@mdkjapan.com",
                 UserName = "user",

@@ -55,7 +55,7 @@ namespace model
             }
             else
             {
-                context.SetError("invalid_grant", "Provided username and password is not matching. Please retry.");
+                context.SetError("Incorrect email or password.");
                 context.Rejected();
             }
         }

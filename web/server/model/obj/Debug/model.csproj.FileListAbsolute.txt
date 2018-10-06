@@ -34,3 +34,10 @@ C:\data\projects\mdk\web\server\model\bin\Debug\Microsoft.Owin.Security.xml
 C:\data\projects\mdk\web\server\model\bin\Debug\Microsoft.Owin.Security.OAuth.xml
 C:\data\projects\mdk\web\server\model\obj\Debug\model.Migrations.v1.resources
 C:\data\projects\mdk\web\server\model\obj\Debug\model.csproj.GenerateResource.cache
+C:\data\projects\mdk\web\server\model\bin\Debug\Microsoft.Owin.Host.HttpListener.dll
+C:\data\projects\mdk\web\server\model\bin\Debug\Microsoft.Owin.Hosting.dll
+C:\data\projects\mdk\web\server\model\bin\Debug\System.Web.Http.Owin.dll
+C:\data\projects\mdk\web\server\model\bin\Debug\Microsoft.Owin.Host.HttpListener.xml
+C:\data\projects\mdk\web\server\model\bin\Debug\Microsoft.Owin.Hosting.xml
+C:\data\projects\mdk\web\server\model\bin\Debug\System.Web.Http.Owin.xml
+C:\data\projects\mdk\web\server\model\bin\Debug\Nustache.Core.dll

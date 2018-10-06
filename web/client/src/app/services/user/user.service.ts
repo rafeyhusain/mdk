@@ -14,15 +14,11 @@ export class UserService {
     private http: HttpClient,
     private messageService: MessageService) { }
 
-  registerUser(user: User) {
-    const url = `${ environment.apiUrl }/api/user/register`;
+  signup(email: string) {
+    const url = `${ environment.apiUrl }/api/user/signup`;
 
-    const body: User = {
-      UserName: user.UserName,
-      Password: user.Password,
-      Email: user.Email,
-      FirstName: user.FirstName,
-      LastName: user.LastName
+    const body: any = {
+      Email: email
     }
 
     var options = { headers : new HttpHeaders({'No-Auth':'True'}) };
@@ -56,7 +52,7 @@ export class UserService {
     );
   }
 
-  setToken(user: object) {
+  setUser(user: object) {
     if (user == null) {
       return;
     }
@@ -66,7 +62,7 @@ export class UserService {
     localStorage.setItem('social', "false");
   }
 
-  setTokenForSocialUser(user: object) {
+  setSocialUser(user: object) {
     if (user == null) {
       return;
     }
@@ -84,8 +80,10 @@ export class UserService {
     return localStorage.getItem('name');
   }
 
-  removeToken() {
+  removeUser() {
     localStorage.removeItem('token');
+    localStorage.removeItem('name');
+    localStorage.removeItem('social');
   }
 
   isAuthenticated() {

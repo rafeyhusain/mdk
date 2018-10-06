@@ -15,12 +15,20 @@ namespace api.Controllers
 {
     public class UserController : ApiController
     {
-        [Route("api/user/register")]
+        [Route("api/user/signup")]
         [HttpPost]
         [AllowAnonymous]
-        public IdentityResult Register(Account account)
+        public IdentityResult Signup(Account account)
         {
-            return CarDb.Register(account);
+            return CarDb.Signup(account);
+        }
+
+        [HttpGet]
+        [Route("api/user/activate")]
+        [AllowAnonymous]
+        public Account ActivateUser()
+        {
+            return CarDb.ActivateUser();
         }
 
         [HttpGet]

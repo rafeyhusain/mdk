@@ -21,7 +21,7 @@ export class SigninNavComponent implements OnInit {
     if (this.userService.isSocial()) {
       this.authService.signOut();
     }
-    this.userService.removeToken();
+    this.userService.removeUser();
     this.router.navigate(['/signin']);
   }
 }

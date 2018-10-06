@@ -1,10 +1,9 @@
 // CORE
 import { NgModule }       from '@angular/core';
 import { BrowserModule }  from '@angular/platform-browser';
-import { FormsModule }    from '@angular/forms';
+import { FormsModule, ReactiveFormsModule }    from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router'
-
 // 3rd PARTY
 import {
   SocialLoginModule, 
@@ -40,6 +39,8 @@ import { UserProfileComponent } from './public/pages/user-profile/user-profile.c
 import { HeaderComponent } from './public/components/header/header.component';
 import { FooterComponent } from './public/components/footer/footer.component';
 import { MasterComponent } from './public/components/master/master.component';
+import { SignupDoneComponent } from './public/pages/signup-done/signup-done.component';
+import { PageNotFoundComponent } from './public/pages/page-not-found/page-not-found.component';
 
 const config1 = new AuthServiceConfig([
   {
@@ -71,6 +72,7 @@ export function provideConfig() {
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     SocialLoginModule,
     RouterModule.forRoot(appRoutes)
@@ -92,7 +94,9 @@ export function provideConfig() {
     UserProfileComponent,
     HeaderComponent,
     FooterComponent,
-    MasterComponent
+    MasterComponent,
+    SignupDoneComponent,
+    PageNotFoundComponent
   ],
   providers: [
     UserService,
